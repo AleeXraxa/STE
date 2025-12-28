@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../constants/app_constants.dart';
 import '../../routes/app_routes.dart';
 
@@ -225,11 +226,19 @@ class _OnboardingViewState extends State<OnboardingView>
                   SizedBox(width: 20),
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         if (_currentTabIndex < tabs.length - 1) {
                           _tabController.animateTo(_currentTabIndex + 1);
                         } else {
-                          Get.toNamed(AppRoutes.onboarding2);
+                          try {
+                            SharedPreferences prefs =
+                                await SharedPreferences.getInstance();
+                            await prefs.setBool('onboarding_completed', true);
+                            Get.offNamed(AppRoutes.home);
+                          } catch (e) {
+                            // Fallback navigation
+                            Get.offNamed(AppRoutes.home);
+                          }
                         }
                       },
                       child: Text(

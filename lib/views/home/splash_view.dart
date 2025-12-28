@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../constants/app_constants.dart';
 import '../../routes/app_routes.dart';
 
@@ -44,9 +45,21 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
       _scaleController.forward();
     });
 
-    // Navigate to onboarding after 3 seconds
-    Future.delayed(Duration(seconds: 3), () {
-      Get.offNamed(AppRoutes.onboarding);
+    // Navigate based on first launch after 3 seconds
+    Future.delayed(Duration(seconds: 3), () async {
+      try {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        bool onboardingCompleted =
+            prefs.getBool('onboarding_completed') ?? false;
+        if (onboardingCompleted) {
+          Get.offNamed(AppRoutes.home);
+        } else {
+          Get.offNamed(AppRoutes.onboarding);
+        }
+      } catch (e) {
+        // Fallback to onboarding if error
+        Get.offNamed(AppRoutes.onboarding);
+      }
     });
   }
 
