@@ -24,14 +24,35 @@ class _OnboardingViewState extends State<OnboardingView>
     'Audio Or Video Translation',
   ];
 
-  final List<String> methods = [
-    'Connect your earbuds via Bluetooth',
-    'Enable AI features in settings',
-    'Start conversations with real-time translation',
-    'Use machine translation for documents',
-    'Pair headphones and phones for dual audio',
-    'Scan photos for instant text translation',
-    'Translate audio/video content on the fly',
+  final List<List<String>> methods = [
+    [
+      'Connect your earbuds via Bluetooth',
+      'Ensure Bluetooth is enabled on your device',
+    ],
+    [
+      'Enable AI features in settings',
+      'Grant microphone and speech recognition permissions',
+    ],
+    [
+      'Start conversations with real-time translation',
+      'Select source and target languages',
+    ],
+    [
+      'Use machine translation for documents',
+      'Upload or paste text for translation',
+    ],
+    [
+      'Pair headphones and phones for dual audio',
+      'Connect both devices simultaneously',
+    ],
+    [
+      'Scan photos for instant text translation',
+      'Point camera at text and capture',
+    ],
+    [
+      'Translate audio/video content on the fly',
+      'Play media and select translation option',
+    ],
   ];
 
   @override
@@ -92,9 +113,11 @@ class _OnboardingViewState extends State<OnboardingView>
                 controller: _tabController,
                 isScrollable: true,
                 indicator: BoxDecoration(),
+                dividerColor: Colors.transparent,
                 labelColor: AppConstants.textColor,
                 unselectedLabelColor: Colors.grey,
                 labelPadding: EdgeInsets.symmetric(horizontal: 12),
+                padding: EdgeInsets.zero,
                 tabs: tabs
                     .map(
                       (tab) => Container(
@@ -130,7 +153,7 @@ class _OnboardingViewState extends State<OnboardingView>
                   Row(
                     children: [
                       Icon(
-                        Icons.info_outline,
+                        Icons.lightbulb_outline,
                         color: AppConstants.textColor,
                         size: 20,
                       ),
@@ -146,14 +169,14 @@ class _OnboardingViewState extends State<OnboardingView>
                     ],
                   ),
                   SizedBox(height: 10),
-                  ...methods.map(
-                    (method) => Padding(
+                  ...methods[_currentTabIndex].asMap().entries.map(
+                    (entry) => Padding(
                       padding: const EdgeInsets.symmetric(vertical: 4.0),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '• ',
+                            '${entry.key + 1}. ',
                             style: TextStyle(
                               color: AppConstants.textColor,
                               fontSize: 16,
@@ -161,7 +184,7 @@ class _OnboardingViewState extends State<OnboardingView>
                           ),
                           Expanded(
                             child: Text(
-                              method,
+                              entry.value,
                               style: GoogleFonts.poppins(
                                 fontSize: 15,
                                 color: AppConstants.textColor,
@@ -202,9 +225,17 @@ class _OnboardingViewState extends State<OnboardingView>
                   SizedBox(width: 20),
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () => Get.toNamed(AppRoutes.onboarding2),
+                      onPressed: () {
+                        if (_currentTabIndex < tabs.length - 1) {
+                          _tabController.animateTo(_currentTabIndex + 1);
+                        } else {
+                          Get.toNamed(AppRoutes.onboarding2);
+                        }
+                      },
                       child: Text(
-                        'Next Step',
+                        _currentTabIndex == tabs.length - 1
+                            ? 'Get Started'
+                            : 'Next Step',
                         style: TextStyle(
                           color: AppConstants.textColor,
                           fontSize: 16,
