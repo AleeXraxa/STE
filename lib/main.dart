@@ -11,7 +11,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'MultiLingual Earbuds Translator',
+      debugShowCheckedModeBanner: false,
+      title: 'Smart Translation Earbuds',
       initialRoute: AppRoutes.splash,
       getPages: AppRoutes.pages,
       theme: ThemeData(

@@ -9,6 +9,7 @@ import '../views/free_talk/free_talk_view.dart';
 import '../views/earbud_phone/earbud_phone_view.dart';
 import '../views/photo_translation/photo_translation_view.dart';
 import '../views/ai_dialogue/ai_dialogue_view.dart';
+import '../views/ai_assistant/ai_assistant_view.dart';
 
 class AppRoutes {
   static const String splash = '/splash';
@@ -21,6 +22,7 @@ class AppRoutes {
   static const String earbudPhone = '/earbud_phone';
   static const String photoTranslation = '/photo_translation';
   static const String aiDialogue = '/ai_dialogue';
+  static const String aiAssistant = '/ai-assistant';
 
   static List<GetPage> pages = [
     GetPage(name: splash, page: () => SplashView()),
@@ -58,7 +60,12 @@ class AppRoutes {
     ),
     GetPage(
       name: aiDialogue,
-      page: () => AiDialogueView(),
+      page: () => AiAssistantView(),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: aiAssistant,
+      page: () => AiAssistantView(),
       binding: AppBindings(),
     ),
   ];

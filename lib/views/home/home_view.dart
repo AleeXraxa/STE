@@ -70,65 +70,75 @@ class HomeView extends GetView<HomeController> {
               ),
             ),
             SizedBox(height: 40),
-            Container(
-              width: double.infinity,
-              margin: EdgeInsets.symmetric(horizontal: 20),
-              padding: EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [AppConstants.primaryColor, Color(0xFF1BC8BB)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                borderRadius: BorderRadius.circular(15),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.3),
-                    blurRadius: 10,
-                    offset: Offset(0, 5),
+            GestureDetector(
+              onTap: () {
+                try {
+                  Get.toNamed(AppRoutes.aiAssistant);
+                } catch (e) {
+                  // Handle error
+                }
+              },
+              child: Container(
+                width: double.infinity,
+                margin: EdgeInsets.symmetric(horizontal: 20),
+                padding: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [AppConstants.primaryColor, Color(0xFF1BC8BB)],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
                   ),
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    'Hi ~ I am your AI Assistant',
-                    style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16,
-                      color: Colors.white,
+                  borderRadius: BorderRadius.circular(15),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.3),
+                      blurRadius: 10,
+                      offset: Offset(0, 5),
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: 15),
-                  TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Tap to start chat',
-                      hintStyle: GoogleFonts.poppins(
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Hi ~ I am your AI Assistant',
+                      style: GoogleFonts.poppins(
                         fontWeight: FontWeight.w500,
+                        fontSize: 16,
                         color: Colors.white,
                       ),
-                      filled: true,
-                      fillColor: Colors.black,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(25),
-                        borderSide: BorderSide.none,
-                      ),
-                      contentPadding: EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 15,
-                      ),
-                      suffixIcon: IconButton(
-                        icon: Icon(Icons.send, color: Colors.white),
-                        onPressed: () {
-                          // Placeholder for send action
-                        },
-                      ),
+                      textAlign: TextAlign.center,
                     ),
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ],
+                    SizedBox(height: 15),
+                    TextField(
+                      readOnly: true,
+                      decoration: InputDecoration(
+                        hintText: 'Tap to start chat',
+                        hintStyle: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                        ),
+                        filled: true,
+                        fillColor: Colors.black,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25),
+                          borderSide: BorderSide.none,
+                        ),
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 15,
+                        ),
+                        suffixIcon: IconButton(
+                          icon: Icon(Icons.send, color: Colors.white),
+                          onPressed: () {
+                            // Placeholder for send action
+                          },
+                        ),
+                      ),
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
               ),
             ),
             SizedBox(height: 40),
